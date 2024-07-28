@@ -23,6 +23,7 @@ pipeline {
         withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
           script {
             try {
+              sh '/opt/homebrew/bin/snyk auth $SNYK_TOKEN'
               sh '/opt/homebrew/bin/snyk container test kenueno/testeb'
             } catch (err) {
               echo err.getMessage()
