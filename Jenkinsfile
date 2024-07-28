@@ -15,8 +15,8 @@ pipeline {
     stage('Build') {
       steps {
         withDockerRegistry([credentialsId: "dockerlogin", url: ""]) {
-          script {
-            app = docker.build("asecurityguru/testeb")
+          steps {
+            sh 'docker build -i "kenueno/testeb" .'
           }
         }
       }
