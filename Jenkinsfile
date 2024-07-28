@@ -14,8 +14,10 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh '/Users/kenueno/.rd/bin/docker login -u kenueno -p $DOCKER_TOKEN'
-        sh '/Users/kenueno/.rd/bin/docker build -t "kenueno/testeb" .'
+        withCredentials([string(credentialsId: 'DOCKER_TOKEN', variable: 'DOCKER_TOKEN')]) {
+          sh '/Users/kenueno/.rd/bin/docker login -u kenueno -p $DOCKER_TOKEN'
+          sh '/Users/kenueno/.rd/bin/docker build -t "kenueno/testeb" .'
+        }
       }
     }
     stage('RunContainerScan') {
