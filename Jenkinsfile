@@ -16,7 +16,7 @@ pipeline {
       steps {
         withDockerRegistry([credentialsId: "dockerlogin", url: ""]) {
           steps {
-            sh 'docker build -i "kenueno/testeb" .'
+            sh 'docker build -t "kenueno/testeb" .'
           }
         }
       }
