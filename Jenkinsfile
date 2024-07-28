@@ -14,10 +14,8 @@ pipeline {
     }
     stage('Build') {
       steps {
-        withCredentials([string(credentialsId: 'DOCKER_TOKEN', variable: 'DOCKER_TOKEN')]) {
-          sh 'cat /Users/kenueno/docker_repo_password.txt | /Users/kenueno/.rd/bin/docker login --username kenueno --password-stdin'
-          sh '/Users/kenueno/.rd/bin/docker build -t "kenueno/testeb" .'
-        }
+        sh 'cat /Users/kenueno/docker_repo_password.txt | /Users/kenueno/.rd/bin/docker login --username kenueno --password-stdin'
+        sh '/Users/kenueno/.rd/bin/docker build -t "kenueno/testeb" .'
       }
     }
     stage('RunContainerScan') {
@@ -25,7 +23,7 @@ pipeline {
         withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
           script {
             try {
-              bat("C:\\snyk\\snyk-win.exe  container test asecurityguru/testeb")
+              sh 'snyk container test kenueno/testeb'
             } catch (err) {
               echo err.getMessage()
             }
@@ -36,7 +34,7 @@ pipeline {
     stage('RunSnykSCA') {
       steps {
         withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
-          bat("mvn snyk:test -fn")
+          sh 'mvn snyk:test -fn'
         }
       }
     }
