@@ -14,6 +14,7 @@ pipeline {
     }
     stage('Build') {
       steps {
+        sh 'docker login -u kenueno -p $DOCKER_TOKEN'
         sh '/Users/kenueno/.rd/bin/docker build -t "kenueno/testeb" .'
       }
     }
