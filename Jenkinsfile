@@ -14,11 +14,7 @@ pipeline {
     }
     stage('Build') {
       steps {
-        withDockerRegistry([credentialsId: "dockerlogin", url: ""]) {
-          steps {
-            sh '/Users/kenueno/.rd/bin/docker build -t "kenueno/testeb" .'
-          }
-        }
+        sh '/Users/kenueno/.rd/bin/docker build -t "kenueno/testeb" .'
       }
     }
     stage('RunContainerScan') {
