@@ -15,7 +15,7 @@ pipeline {
     stage('Build') {
       steps {
         withCredentials([string(credentialsId: 'DOCKER_TOKEN', variable: 'DOCKER_TOKEN')]) {
-          sh '/Users/kenueno/.rd/bin/docker login -u kenueno -p $DOCKER_TOKEN'
+          sh 'cat /Users/kenueno/docker_repo_password.txt | /Users/kenueno/.rd/bin/docker login --username kenueno --password-stdin'
           sh '/Users/kenueno/.rd/bin/docker build -t "kenueno/testeb" .'
         }
       }
