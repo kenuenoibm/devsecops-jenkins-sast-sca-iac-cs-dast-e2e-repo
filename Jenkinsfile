@@ -47,7 +47,7 @@ pipeline {
 
     stage('checkov') {
       steps {
-        bat("checkov -s -f main.tf")
+        sh '/Users/kenueno/.pyenv/shims/checkov -s -f main.tf'
       }
     }
 
